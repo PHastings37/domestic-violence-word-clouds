@@ -23,7 +23,7 @@ querywords = query.split()
 resultwords = [word for word in querywords if word.lower() not in stopwords]
 
 df = pd.DataFrame(resultwords, columns = ['words'])
-
+freqs =  df.words.value_counts()
 
 text = ' '.join(resultwords)
 
