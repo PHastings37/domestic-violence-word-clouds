@@ -16,6 +16,13 @@ text = f.read()
 f.close()
 
 #STOPWORDS.update( ['said'] )
+punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+no_punct = ""
+for char in text:
+    if char not in punctuations:
+        no_punct = no_punct + char
+        
+text = no_punct
 
 query = text
 stopwords = STOPWORDS
