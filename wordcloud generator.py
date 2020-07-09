@@ -15,7 +15,18 @@ f = open('pre_quality_papers.txt', 'r', encoding='utf-8')
 text = f.read()
 f.close()
 
-#STOPWORDS.update( ['said'] )
+text = text.lower()
+
+STOPWORDS.update( ['said', 'will', 'BST', 'blocktime', '2020', 'new', 'one',
+                   'says', 'publishedtime', 'april', 'may', 'march', 'first',
+                   'week', 'last', 'two', 'told', 'day', '•', 'back', 'going', 
+                   'including', 'updatedtimeupdated', 'make', 'weeks', 'around', 
+                   'take', 'still', 'made', 'go', 'across', 'days', 'per', 
+                   'know', 'way', 'year', 'new', 'gmt', 'three', 'rights', 
+                   'copyright', 'length','words','byline', 'updatedtimeupdated',
+                   'february','document', 'dont', 'reserved', 'loaddate'] )
+
+
 punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
 no_punct = ""
 for char in text:
@@ -34,8 +45,9 @@ freqs =  df.words.value_counts()
 
 text = ' '.join(resultwords)
 
-wordcloud = WordCloud().generate(text)
+wordcloud = WordCloud(max_words=100).generate(text)
 
 plt.imshow(wordcloud, interpolation='bilinear')
 plt.axis("off")
+plt.savefig("Pre quality")
 plt.show()
