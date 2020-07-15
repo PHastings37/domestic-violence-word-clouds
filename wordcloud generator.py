@@ -7,15 +7,16 @@ Created on Wed Jun 24 12:02:36 2020
 
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
-from os import path
 import pandas as pd
-import numpy as np
+import string
 
-f = open('pre_quality_papers.txt', 'r', encoding='utf-8')
+f = open('TextFiles\pre_right_papers.txt', 'r', encoding='utf-8')
 text = f.read()
 f.close()
 
 text = text.lower()
+text = text.translate(str.maketrans('', '', string.punctuation))
+text = text.translate(str.maketrans('', '', string.digits))
 
 STOPWORDS.update( ['said', 'will', 'BST', 'blocktime', '2020', 'new', 'one',
                    'says', 'publishedtime', 'april', 'may', 'march', 'first',
@@ -24,16 +25,16 @@ STOPWORDS.update( ['said', 'will', 'BST', 'blocktime', '2020', 'new', 'one',
                    'take', 'still', 'made', 'go', 'across', 'days', 'per', 
                    'know', 'way', 'year', 'new', 'gmt', 'three', 'rights', 
                    'copyright', 'length','words','byline', 'updatedtimeupdated',
-                   'february','document', 'dont', 'reserved', 'loaddate'] )
-
-
-punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
-no_punct = ""
-for char in text:
-    if char not in punctuations:
-        no_punct = no_punct + char
-        
-text = no_punct
+                   'february','document', 'dont', 'reserved', 'loaddate', 
+                   'updated', 'timeupdated', 'published', 'bst', 'published-time',
+                   'time', 'block', 'date', 'end', 'section', 'date', 'load'
+                   'version', 'newspapers', 'ltd', 'associated', 'articles',
+                   'co', 'pg', 'version length', 'co uk', '£', 'thing', 'pm',
+                   'section news', 'word', 'independent', 'added', 'even', 
+                   'month', 'mr', 'edition', 'media', 'mirror', 'plc',
+                   'really', 'things', 'didnt', 'im', 'news group', 'every'
+                   'june', 'times', 'january', 'mailonline', 'yearold', 
+                   'daily mail'] )
 
 query = text
 stopwords = STOPWORDS
@@ -45,9 +46,16 @@ freqs =  df.words.value_counts()
 
 text = ' '.join(resultwords)
 
-wordcloud = WordCloud(max_words=100).generate(text)
+wordcloud = WordCloud(max_words=100, background_color="white").generate(text)
 
 plt.imshow(wordcloud, interpolation='bilinear')
 plt.axis("off")
-plt.savefig("Pre quality")
+plt.savefig("Graphics\PreRight")
 plt.show()
+
+freqs.to_csv('FrequencyTables\PreRight.csv', index=True)
+    
+    
+                 
+    
+    
